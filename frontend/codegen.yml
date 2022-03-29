@@ -1,0 +1,25 @@
+overwrite: true
+generates:
+  ./src/api/gen/sdk.ts:
+    schema:
+      - https://${APPSYNC_API_ID}.appsync-api.{AWS_REGION}.amazonaws.com/graphql:
+          headers:
+            x-api-key: ${APPSYNC_API_KEY}
+    # schema: "./src/api/schemas/*.graphql"
+    documents: "./src/api/documents/*.graphql"
+    plugins:
+      - typescript
+      - typescript-operations
+      - typescript-graphql-request
+      - plugin-typescript-swr
+config:
+  # # If you have a query that you want to use `useSWRInfinite`, list it in Options
+  # useSWRInfinite:
+  #   - GetPost
+  scalars:
+    DateTime: string
+    JSON: unknown
+    Upload: unknown
+    Time: string
+    Date: string
+    Long: number

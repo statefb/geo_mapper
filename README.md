@@ -1,14 +1,48 @@
-# Welcome to your CDK TypeScript project
+# Geo Location Mapper
 
-This is a blank project for TypeScript development with CDK.
+Extract addresses from any text and map them (Japanese only).
+![](img/screenshot.png)
 
-The `cdk.json` file tells the CDK Toolkit how to execute your app.
+## Tech stack
 
-## Useful commands
+- Frontend
+  - React
+  - SWR
+  - graphql-react
+  - [GraphQL Code Generator](https://www.graphql-code-generator.com/)
+- Backend
 
-* `npm run build`   compile typescript to js
-* `npm run watch`   watch for changes and compile
-* `npm run test`    perform the jest unit tests
-* `cdk deploy`      deploy this stack to your default AWS account/region
-* `cdk diff`        compare deployed stack with current state
-* `cdk synth`       emits the synthesized CloudFormation template
+  - [PyGeoNLP](https://geonlp.ex.nii.ac.jp/doc/pygeonlp/)
+
+  ![](img/arch.svg)
+
+## How to deploy
+
+- Create Google map api key  
+  https://developers.google.com/maps/documentation/javascript/get-api-key
+
+- Deploy backend stack using aws cdk
+  `cdk deploy BackendStack`
+
+- Check AppSync ID and api key
+
+  - ID  
+    `aws appsync list-graphql-apis | jq '.graphqlApis[] | select(.name == "GeoMapperApi") | .apiId'`
+  - api key  
+    `aws appsync list-api-keys --api-id ISSUED_API_ID | jq '.apiKeys[].id'`
+
+- Create .env file on `frontend` directory
+
+```.env
+REACT_APP_GOOGLE_MAP_API_KEY=YOUR_GOOGLE_MAP_API_KEY
+AWS_REGION=YOUR_AWS_REGION
+APPSYNC_API_ID=ISSUED_API_ID
+APPSYNC_API_KEY=ISSUED_API_KEY
+```
+
+- Build frontend
+  `cd frontend`  
+  `npm run build`
+
+- Deploy frontend stack  
+  `cdk deploy FrontendStack`

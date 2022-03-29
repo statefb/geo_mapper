@@ -1,0 +1,23 @@
+type Address {
+  type: String!
+  geometry: Geometry!
+  properties: Properties!
+}
+
+type Geometry {
+  type: String!
+  coordinates: [Float!]!
+}
+
+type Properties {
+  id: Int!
+  surface: String!
+  fullname: String!
+  lat: Float!
+  lng: Float!
+  note: String
+}
+
+type Query {
+  allAddresses(text: String!): [Address!]!
+}

@@ -1,0 +1,19 @@
+query getAddresses($text: String!) {
+  allAddresses(text: $text) {
+    ...AddressFields
+  }
+}
+
+fragment AddressFields on Address {
+  geometry {
+    coordinates
+  }
+  properties {
+    id
+    surface
+    fullname
+    lat
+    lng
+    note
+  }
+}
