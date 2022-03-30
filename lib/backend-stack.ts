@@ -30,6 +30,7 @@ export class BackendStack extends Stack {
       code: lambda.DockerImageCode.fromImageAsset(
         path.join(process.cwd(), "backend/container")
       ),
+      timeout: Duration.seconds(60),
     });
 
     const funcDS = api.addLambdaDataSource("GeoMapperDataSource", func);
