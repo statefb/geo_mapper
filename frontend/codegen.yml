@@ -2,9 +2,9 @@ overwrite: true
 generates:
   ./src/api/gen/sdk.ts:
     schema:
-      - https://${APPSYNC_API_ID}.appsync-api.{AWS_REGION}.amazonaws.com/graphql:
+      - https://${REACT_APP_APPSYNC_API_ID}.appsync-api.{REACT_APP_AWS_REGION}.amazonaws.com/graphql:
           headers:
-            x-api-key: ${APPSYNC_API_KEY}
+            x-api-key: ${REACT_APP_APPSYNC_API_KEY}
     # schema: "./src/api/schemas/*.graphql"
     documents: "./src/api/documents/*.graphql"
     plugins:
